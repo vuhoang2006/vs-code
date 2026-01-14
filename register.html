@@ -3,38 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng ký</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .success {
+            color: green;
+        }
+    </style>
 </head>
 <body>
 
-<h2>📝 Tạo tài khoản</h2>
+<div class="box">
+    <h2>📝 Đăng ký tài khoản</h2>
 
-<input type="text" id="username" placeholder="Tên đăng nhập"><br><br>
-<input type="password" id="password" placeholder="Mật khẩu"><br><br>
+    <input type="text" id="username" placeholder="Tên đăng nhập">
+    <input type="password" id="password" placeholder="Mật khẩu">
 
-<button onclick="register()">Đăng ký</button>
-<p id="msg"></p>
+    <button onclick="register()">Đăng ký</button>
+
+    <p id="msg"></p>
+</div>
 
 <script>
 function register() {
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
+    const msg = document.getElementById("msg");
 
     if (!user || !pass) {
-        document.getElementById("msg").innerText = "Nhập đủ thông tin";
+        msg.innerText = "Vui lòng nhập đủ thông tin";
+        msg.style.color = "red";
         return;
     }
 
     let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
 
     if (accounts.find(acc => acc.username === user)) {
-        document.getElementById("msg").innerText = "Tài khoản đã tồn tại";
+        msg.innerText = "Tài khoản đã tồn tại";
+        msg.style.color = "red";
         return;
     }
 
+    // Lưu tài khoản
     accounts.push({ username: user, password: pass });
     localStorage.setItem("accounts", JSON.stringify(accounts));
 
-    document.getElementById("msg").innerText = "Đăng ký thành công!";
+    // TỰ ĐĂNG NHẬP LUÔN
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("user", user);
+
+    msg.innerText = "✅ Đăng ký thành công! Đang chuyển vào cửa hàng...";
+    msg.className = "success";
+
+    // Chuyển sang trang bán hàng sau 1.5s
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1500);
 }
 </script>
 
