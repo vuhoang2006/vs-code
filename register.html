@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký</title>
+</head>
+<body>
+
+<h2>📝 Tạo tài khoản</h2>
+
+<input type="text" id="username" placeholder="Tên đăng nhập"><br><br>
+<input type="password" id="password" placeholder="Mật khẩu"><br><br>
+
+<button onclick="register()">Đăng ký</button>
+<p id="msg"></p>
+
+<script>
+function register() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (!user || !pass) {
+        document.getElementById("msg").innerText = "Nhập đủ thông tin";
+        return;
+    }
+
+    let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+
+    if (accounts.find(acc => acc.username === user)) {
+        document.getElementById("msg").innerText = "Tài khoản đã tồn tại";
+        return;
+    }
+
+    accounts.push({ username: user, password: pass });
+    localStorage.setItem("accounts", JSON.stringify(accounts));
+
+    document.getElementById("msg").innerText = "Đăng ký thành công!";
+}
+</script>
+
+</body>
+</html>
