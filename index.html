@@ -10,17 +10,20 @@
 <header>
     <h1>🛒 CỬA HÀNG ONLINE</h1>
     <p>Uy tín – Giá tốt – Giao hàng nhanh</p>
+
     <nav>
         <a href="index.html">Trang chủ</a>
         <a href="about.html">Giới thiệu</a>
         <a href="contact.html">Liên hệ</a>
     </nav>
+
+    <button onclick="logout()">🚪 Đăng xuất</button>
 </header>
 
 <section class="products">
 
     <div class="product">
-        <img src="images/meo1.jpg">
+        <img src="images/meo1.jpg" alt="Mèo dễ thương">
         <h2>Mèo dễ thương</h2>
         <p class="price">199.000đ</p>
         <a href="https://zalo.me/xxxxxxxxx" class="buy">Mua qua Zalo</a>
@@ -28,7 +31,7 @@
     </div>
 
     <div class="product">
-        <img src="images/meo2.jpg">
+        <img src="images/meo2.jpg" alt="Mèo đáng yêu">
         <h2>Mèo đáng yêu</h2>
         <p class="price">299.000đ</p>
         <a href="https://facebook.com/yourpage" class="buy">Mua Facebook</a>
@@ -40,6 +43,19 @@
 <footer>
     © 2026 - Website bán hàng online
 </footer>
+
+<script>
+// CHẶN TRUY CẬP NẾU CHƯA LOGIN
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+// ĐĂNG XUẤT
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html";
+}
+</script>
 
 </body>
 </html>
